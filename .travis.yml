@@ -5,7 +5,11 @@ install:
 script:
   - npm run test
   - npm run build
+before_deploy:
+  - git add .
+  - git commit -m "build and deploy"
 deploy:
   skip_cleanup: true
+  verbose: true
   provider: azure_web_apps
   on: dev
