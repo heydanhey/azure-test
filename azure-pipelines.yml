@@ -20,12 +20,12 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
+- script: |
+    zip -r result.zip . -x .git/**\* > /dev/null
+  displayName: 'package results'
+
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)'
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-    includeRootFolder: false
-    replaceExistingArchive: true 
+    pathtoPublish: '$(Build.SourcesDirectory)/result.zip' 
+    artifactName: 'drop' 
+  displayName: 'upload artifacts'
